@@ -63,27 +63,29 @@ function buttonDisabled() {
   $rendomButton.disabled = true;
 }
 
-function changeHP(damage, player) {
-  const $playerLife = document.querySelector(
-    ".player" + player.player + " .life"
-  );
-
-  player.hp -= damage;
-  $playerLife.style.width = player.hp + "%";
-  console.log(player.hp);
-  if (player.hp <= damage) {
-    player.hp = 0;
-    buttonDisabled();
-    if (player.name === "PREDATOR") {
-      $arenas.appendChild(playerWins("SCORPION"));
-    } else $arenas.appendChild(playerWins("PREDATOR"));
-  }
-}
-
 function playerWins(name) {
   const $winTitle = createElement("div", "loseTitle");
   $winTitle.innerText = name + " wins";
   return $winTitle;
+}
+
+function winner(player) {
+  if (player.name === "PREDATOR") {
+    $arenas.appendChild(playerWins("SCORPION"));
+  } else $arenas.appendChild(playerWins("PREDATOR"));
+}
+
+function changeHP(damage, player) {
+  const $playerLife = document.querySelector(
+    ".player" + player.player + " .life"
+  );
+  player.hp -= damage;
+  $playerLife.style.width = player.hp + "%";
+  if (player.hp <= damage) {
+    player.hp = 0;
+    buttonDisabled();
+    winner(player);
+  }
 }
 
 $rendomButton.addEventListener("click", function () {
