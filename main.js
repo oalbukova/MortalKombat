@@ -58,7 +58,9 @@ function createReloadButton() {
   const $button = createElement("button", "button");
   $button.innerText = "Restart";
   $reloadWrap.appendChild($button);
-  $button.addEventListener("click", window.location.reload());
+  return $button.addEventListener("click", function () {
+    window.location.reload();
+  });
 }
 
 function changeHP(num) {
