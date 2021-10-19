@@ -71,14 +71,13 @@ function changeHP(num) {
 }
 
 function elHP() {
-  return this.hp;
+  return ($playerLife = document.querySelector(
+    ".player" + this.player + " .life"
+  ));
 }
 
 function renderHP() {
-  const $playerLife = document.querySelector(
-    ".player" + this.player + " .life"
-  );
-  $playerLife.style.width = this.elHP() + "%";
+  this.elHP().style.width = this.hp + "%";
 }
 
 function getRandom(num) {
