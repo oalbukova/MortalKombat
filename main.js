@@ -116,18 +116,8 @@ function enemyAttack() {
   };
 }
 
-function getDamage(attack, enemy) {
-  if (attack.hit !== enemy.defence) {
-    this.changeHP(attack.value);
-    this.renderHP();
-  }
-}
-
-$formFight.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const enemy = enemyAttack();
+function playerAttack() {
   const attack = {};
-
   for (let item of $formFight) {
     if (item.checked && item.name === "hit") {
       attack.value = getRandom(HIT[item.value]);
@@ -138,10 +128,10 @@ $formFight.addEventListener("submit", function (e) {
     }
     item.checked = false;
   }
+  return attack;
+}
 
-  getDamage.call(player2, attack, enemy);
-  getDamage.call(player1, enemy, attack);
-
+function showResult() {
   if (player1.hp === 0 || player2.hp === 0) {
     $rendomButton.disabled = true;
     createReloadButton();
@@ -153,4 +143,22 @@ $formFight.addEventListener("submit", function (e) {
   } else if (player2.hp === 0 && player2.hp === 0) {
     $arenas.appendChild(playerWins());
   }
+}
+
+$formFight.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const enemy = enemyAttack();
+  const player = playerAttack();
+
+  if (player.defence !== enemy.hit) {
+    player1.changeHP(enemy.value);
+    player1.renderHP();
+  }
+
+  if (enemy.defence !== player.hit) {
+    player2.changeHP(player.value);
+    player2.renderHP();
+  }
+
+  showResult();
 });
