@@ -1,6 +1,4 @@
-import { player1, player2 } from "./players.js";
 import { $arenas, createElement } from "./utils.js";
-import generateLogs from "./logs.js";
 
 const $rendomButton = document.querySelector("button");
 
@@ -27,7 +25,7 @@ const playerWins = (name) => {
   return $winTitle;
 };
 
-const showResult = () => {
+const showResult = (player1, player2, generateLogs) => {
   if (player1.hp === 0 || player2.hp === 0) {
     $rendomButton.disabled = true;
     createReloadButton();

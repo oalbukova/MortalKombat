@@ -11,6 +11,6 @@ generateLogs("start", player1, player2);
 
 $formFight.addEventListener("submit", function (e) {
   e.preventDefault();
-  battle();
-  showResult();
+  battle(player1, player2, generateLogs);
+  showResult(player1, player2, generateLogs);
 });

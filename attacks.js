@@ -1,6 +1,4 @@
 import { $formFight, getRandom } from "./utils.js";
-import { player1, player2 } from "./players.js";
-import generateLogs from "./logs.js";
 
 const HIT = {
   head: 30,
@@ -34,7 +32,7 @@ const playerAttack = () => {
   return attack;
 }
 
-const battle = () => {
+const battle = (player1, player2, generateLogs) => {
   const enemy = enemyAttack();
   const player = playerAttack();
 
@@ -55,6 +53,6 @@ const battle = () => {
   if (enemy.defence === player.hit) {
     generateLogs("defence", player1, player2);
   }
-}
+};
 
 export default battle;
