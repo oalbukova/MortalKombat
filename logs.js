@@ -42,7 +42,12 @@ const logs = {
   draw: "Ничья - это тоже победа!",
 };
 
-const generateLogs = (type, { name } = {}, { name: playerName2, hp } = {}, valueAttack) => {
+const generateLogs = (
+  type,
+  { name } = {},
+  { name: playerName2, hp } = {},
+  valueAttack
+) => {
   const date = new Date();
   const normalize = (num) => (num.toString().length > 1 ? num : `0${num}`);
   const time = `${normalize(date.getHours())}:${normalize(
@@ -58,7 +63,7 @@ const generateLogs = (type, { name } = {}, { name: playerName2, hp } = {}, value
   const textWin = logs[type][getRandom(logs[type].length) - 1]
     .replace("[playerWins]", name)
     .replace("[playerLose]", playerName2);
-    const texDraw = logs[type][getRandom(logs[type].length) - 1]
+  const texDraw = logs[type];
   switch (type) {
     case "start":
       return $chat.insertAdjacentHTML("afterbegin", `<p>${startGame}</p>`);
