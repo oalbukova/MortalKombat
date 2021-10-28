@@ -43,7 +43,4 @@ const showResult = (player1, player2, generateLogs) => {
 };
 
 export default showResult;
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
+
