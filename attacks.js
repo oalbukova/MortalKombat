@@ -15,7 +15,7 @@ const enemyAttack = () => {
     hit,
     defence,
   };
-}
+};
 
 const playerAttack = () => {
   const attack = {};
@@ -30,27 +30,31 @@ const playerAttack = () => {
     item.checked = false;
   }
   return attack;
-}
+};
 
 const battle = (player1, player2, generateLogs) => {
-  const enemy = enemyAttack();
-  const player = playerAttack();
+  const {
+    hit: hitEnemy,
+    defence: defenceEnemy,
+    value: valueEnemy,
+  } = enemyAttack();
+  const { hit, defence, value } = playerAttack();
 
-  if (player.defence !== enemy.hit) {
-    player1.changeHP(enemy.value);
+  if (defence !== hitEnemy) {
+    player1.changeHP(valueEnemy);
     player1.renderHP();
-    generateLogs("hit", player2, player1, enemy.value);
+    generateLogs("hit", player2, player1, valueEnemy);
   }
-  if (player.defence === enemy.hit) {
+  if (defence === hitEnemy) {
     generateLogs("defence", player2, player1);
   }
 
-  if (enemy.defence !== player.hit) {
-    player2.changeHP(player.value);
+  if (defenceEnemy !== hit) {
+    player2.changeHP(value);
     player2.renderHP();
-    generateLogs("hit", player1, player2, player.value);
+    generateLogs("hit", player1, player2, value);
   }
-  if (enemy.defence === player.hit) {
+  if (defenceEnemy === hit) {
     generateLogs("defence", player1, player2);
   }
 };
