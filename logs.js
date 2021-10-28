@@ -58,6 +58,7 @@ const generateLogs = (type, { name } = {}, { name: playerName2, hp } = {}, value
   const textWin = logs[type][getRandom(logs[type].length) - 1]
     .replace("[playerWins]", name)
     .replace("[playerLose]", playerName2);
+    const texDraw = logs[type][getRandom(logs[type].length) - 1]
   switch (type) {
     case "start":
       return $chat.insertAdjacentHTML("afterbegin", `<p>${startGame}</p>`);
@@ -71,7 +72,7 @@ const generateLogs = (type, { name } = {}, { name: playerName2, hp } = {}, value
     case "end":
       return $chat.insertAdjacentHTML("afterbegin", `<p>${textWin}</p>`);
     case "draw":
-      return $chat.insertAdjacentHTML("afterbegin", `<p>${text}</p>`);
+      return $chat.insertAdjacentHTML("afterbegin", `<p>${texDraw}</p>`);
   }
 };
 
