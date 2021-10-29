@@ -42,7 +42,12 @@ const logs = {
   draw: "Ничья - это тоже победа!",
 };
 
-const generateLogs = (type, player1, player2, value) => {
+const generateLogs = (
+  type,
+  { name } = {},
+  { name: playerName2, hp } = {},
+  valueAttack
+) => {
   const date = new Date();
   const normalize = (num) => (num.toString().length > 1 ? num : `0${num}`);
   const time = `${normalize(date.getHours())}:${normalize(
@@ -50,28 +55,29 @@ const generateLogs = (type, player1, player2, value) => {
   )}:${normalize(date.getSeconds())}`;
   const startGame = logs["start"]
     .replace("[time]", time)
-    .replace("[player1]", player1.name)
-    .replace("[player2]", player2.name);
+    .replace("[player1]", name)
+    .replace("[player2]", playerName2);
   const text = logs[type][getRandom(logs[type].length) - 1]
-    .replace("[playerKick]", player1.name)
-    .replace("[playerDefence]", player2.name);
+    .replace("[playerKick]", name)
+    .replace("[playerDefence]", playerName2);
   const textWin = logs[type][getRandom(logs[type].length) - 1]
-    .replace("[playerWins]", player1.name)
-    .replace("[playerLose]", player2.name);
+    .replace("[playerWins]", name)
+    .replace("[playerLose]", playerName2);
+  const texDraw = logs[type];
   switch (type) {
     case "start":
       return $chat.insertAdjacentHTML("afterbegin", `<p>${startGame}</p>`);
     case "hit":
       return $chat.insertAdjacentHTML(
         "afterbegin",
-        `<p>${time} - ${text} -${value} [${player2.hp}/100]</p>`
+        `<p>${time} - ${text} -${valueAttack} [${hp}/100]</p>`
       );
     case "defence":
       return $chat.insertAdjacentHTML("afterbegin", `<p>${time} - ${text}</p>`);
     case "end":
       return $chat.insertAdjacentHTML("afterbegin", `<p>${textWin}</p>`);
     case "draw":
-      return $chat.insertAdjacentHTML("afterbegin", `<p>${text}</p>`);
+      return $chat.insertAdjacentHTML("afterbegin", `<p>${texDraw}</p>`);
   }
 };
 
