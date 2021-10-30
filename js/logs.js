@@ -1,4 +1,3 @@
-import { getRandom } from "./utils.js";
 const $chat = document.querySelector(".chat");
 
 const logs = {
@@ -41,6 +40,8 @@ const logs = {
   ],
   draw: "Ничья - это тоже победа!",
 };
+
+const getRandom = (num) => Math.ceil(Math.random() * num);
 
 const generateLogs = (
   type,
