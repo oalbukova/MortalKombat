@@ -1,11 +1,12 @@
-import { createElement } from "./utils.js";
+import { createElement} from "./utils.js";
 
 class Player {
   constructor(props) {
+    this.rootSelector = props.rootSelector;
     this.player = props.player;
     this.name = props.name;
     this.hp = 100;
-    this.img = `http://reactmarathon-api.herokuapp.com/assets/${this.name.toLowerCase()}.gif`;
+    this.img = props.img;
   }
   changeHP = (num) => {
     this.hp -= num;
@@ -18,6 +19,7 @@ class Player {
   renderHP = () => (this.elHP().style.width = `${this.hp}%`);
 
   createPlayer = () => {
+    const $arenas = document.querySelector(`.${this.rootSelector} `);
     const $player = createElement("div", `player${this.player}`);
     const $progressbar = createElement("div", "progressbar");
     const $character = createElement("div", "character");
@@ -36,6 +38,7 @@ class Player {
 
     $player.appendChild($progressbar);
     $player.appendChild($character);
+    $arenas.appendChild($player);
 
     return $player;
   };

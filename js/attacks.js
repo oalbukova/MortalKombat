@@ -1,27 +1,12 @@
-import { $formFight, getRandom } from "./utils.js";
+import { $formFight } from "./utils.js";
+import Result from "./result.js";
 
-const HIT = {
-  head: 30,
-  body: 25,
-  foot: 20,
-};
-const ATTACK = ["head", "body", "foot"];
-const enemyAttack = () => {
-  const hit = ATTACK[getRandom(3) - 1];
-  const defence = ATTACK[getRandom(3) - 1];
-
-  return {
-    value: getRandom(HIT[hit]),
-    hit,
-    defence,
-  };
-};
+const result = new Result();
 
 const playerAttack = () => {
   const attack = {};
   for (let item of $formFight) {
     if (item.checked && item.name === "hit") {
-      attack.value = getRandom(HIT[item.value]);
       attack.hit = item.value;
     }
     if (item.checked && item.name === "defence") {
@@ -32,13 +17,32 @@ const playerAttack = () => {
   return attack;
 };
 
-const battle = (player1, player2, generateLogs) => {
+const postAttack = async (hit, defence) => {
+  const body =  fetch(
+    "http://reactmarathon-api.herokuapp.com/api/mk/player/fight",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        hit,
+        defence,
+      }),
+    }
+  ).then(res => res.json())
+
+  return body;
+};
+
+const battle = async (player1, player2, generateLogs) => {
+  const { hit, defence } = playerAttack();
+
+  const fight = await postAttack(hit, defence);
+
+  const { value } = fight.player1;
   const {
+    value: valueEnemy,
     hit: hitEnemy,
     defence: defenceEnemy,
-    value: valueEnemy,
-  } = enemyAttack();
-  const { hit, defence, value } = playerAttack();
+  } = fight.player2;
 
   if (defence !== hitEnemy) {
     player1.changeHP(valueEnemy);
@@ -57,6 +61,8 @@ const battle = (player1, player2, generateLogs) => {
   if (defenceEnemy === hit) {
     generateLogs("defence", player1, player2);
   }
+
+  result.showResult(player1, player2, generateLogs);
 };
 
 export default battle;

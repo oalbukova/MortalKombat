@@ -1,4 +1,7 @@
-import { $arenas, createElement } from "./utils.js";
+import { createElement } from "./utils.js";
+
+const $arenas = document.querySelector(".arenas");
+
 class Result {
   createReloadButton = () => {
     const $reloadButtonDiv = createElement("div", "reloadWrap");
@@ -6,7 +9,7 @@ class Result {
     $reloadButton.innerText = "Reload";
 
     $reloadButton.addEventListener("click", function () {
-      window.location.reload();
+      window.location.pathname = "index.html";
     });
 
     $reloadButtonDiv.appendChild($reloadButton);
@@ -43,4 +46,3 @@ class Result {
 }
 
 export default Result;
-
