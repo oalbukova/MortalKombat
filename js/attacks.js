@@ -18,8 +18,7 @@ const playerAttack = () => {
 };
 
 const postAttack = async (hit, defence) => {
-
-  const body =  fetch(
+  const body = fetch(
     "https://reactmarathon-api.herokuapp.com/api/mk/player/fight",
     {
       method: "POST",
