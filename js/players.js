@@ -1,4 +1,4 @@
-import { createElement} from "./utils.js";
+import { createElement, getRandom } from "./utils.js";
 
 class Player {
   constructor(props) {
@@ -20,6 +20,7 @@ class Player {
 
   createPlayer = () => {
     const $arenas = document.querySelector(`.${this.rootSelector} `);
+    $arenas.classList.replace('arena1', `arena${getRandom(5)}`);
     const $player = createElement("div", `player${this.player}`);
     const $progressbar = createElement("div", "progressbar");
     const $character = createElement("div", "character");
