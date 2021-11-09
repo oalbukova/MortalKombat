@@ -1,4 +1,4 @@
-import { $formFight } from "./utils.js";
+import { $formFight, createElement } from "./utils.js";
 import Player from "./players.js";
 import battle from "./attacks.js";
 import generateLogs from "./logs.js";
@@ -13,7 +13,23 @@ class Game {
     ).then((res) => res.json());
     return body;
   };
+
+  showFigtImg = () => {
+    const $arenas = document.querySelector(".arenas");
+    const $fight = createElement("img", "fight");
+    $fight.src = "../assets/fight.gif";
+  
+    $formFight.classList.add("control_fight");
+    $arenas.appendChild($fight);
+    
+    setTimeout(() => {
+      $fight.style.display = "none";
+      $formFight.classList.remove("control_fight");
+    }, 2500);
+  };
+
   start = async () => {
+    this.showFigtImg();
     const p1 = JSON.parse(localStorage.getItem("player1"));
     const p2 = await this.getPlayers();
 

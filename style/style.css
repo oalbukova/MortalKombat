@@ -334,6 +334,10 @@ form:invalid button[class="button"]:active::after {
   z-index: 1000;
 }
 
+.control_fight {
+  display: none;
+}
+
 .inputWrap {
   position: relative;
   width: 280px;
